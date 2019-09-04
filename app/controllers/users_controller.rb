@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-
+    @user = User.all()
   end
 
   def show
@@ -15,10 +15,11 @@ class UsersController < ApplicationController
   def create
      @user = User.new user_params
     if @user.save
-      flash[:success] = "Wellcome to My App"
+      log_in @user
+      flash.now[:success] = "Wellcome to My App"
       redirect_to @user
     else
-      flash[:danger] = "Register failed"
+      flash.now[:danger] = "Register failed"
       render :new
     end
   end

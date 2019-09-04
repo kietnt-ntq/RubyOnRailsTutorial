@@ -1,1 +1,25 @@
-index.html.erb
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="col-md-12">
+    <section class="user_info">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">name</th>
+              <th scope="col">email</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @user.each do |user| %>
+          <tr>
+            <th scope="row"><%= user.id %></th>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+          </tr>
+          <% end%>
+          </tbody>
+        </table>
+    </section>
+  </aside>
+</div>
