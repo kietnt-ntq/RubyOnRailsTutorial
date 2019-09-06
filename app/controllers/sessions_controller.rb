@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create]
   def new
   end
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      flash.now[:success] = "Login success"
+      flash.now[:success] = "Wellcome to my App"
       log_in user
       redirect_to user
     else
