@@ -12,8 +12,8 @@ module SessionsHelper
 
   def forget(user)
     user.forget
-    cookies.delete[:user_id]
-    cookies.delete[:remmember_token]
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
   end
 
   def current_user
@@ -33,9 +33,9 @@ module SessionsHelper
   end
 
   def log_out
-    forget(@current_user)
-    session.delete :user_id
-    @current_user = nil 
+    forget(current_user)
+    session.delete(:user_id)
+    @current_user = nil
   end
 
 end
