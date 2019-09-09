@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  # skip_before_action :require_login, only: [:new, :create]
+  before_action :require_login, only: [:new, :create]
   def new
   end
 
@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       flash.now[:success] = "Wellcome to my App"
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+      redirect_back_or user
     else
       flash.now[:danger] = "Invalid email/password combination"
       render :new
@@ -22,4 +22,10 @@ class SessionsController < ApplicationController
     redirect_to login_path
   end
 
+  private 
+  def require_login
+    if logged_in?
+      redirect_to root_path
+    end
+  end
 end
