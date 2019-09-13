@@ -1,25 +1,36 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, "All Users") %>
+<h1>All Users</h1>
 <div class="row">
   <aside class="col-md-12">
     <section class="user_info">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">id</th>
+              <th scope="col">avatar</th>
               <th scope="col">name</th>
               <th scope="col">email</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-          <% @user.each do |user| %>
+          <% @users.each do |user| %>
           <tr>
-            <th scope="row"><%= user.id %></th>
-            <td><%= user.name %></td>
+            <th scope="row"><%= gravatar_for user, size: 50 %></th>
+            <td><%= link_to user.name, user %></td>
             <td><%= user.email %></td>
+            <td>
+              <% if current_user.admin? && !current_user?(user) %>
+    |          <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+               <% end %>            
+            </td>
           </tr>
           <% end%>
           </tbody>
         </table>
     </section>
   </aside>
+</div>
+<div align="right"> 
+  <%= will_paginate %>
 </div>
